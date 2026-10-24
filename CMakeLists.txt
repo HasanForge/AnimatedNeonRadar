@@ -20,7 +20,13 @@ project(AnimatedNeonRadar LANGUAGES CXX)
 # directory alongside an ASI loader (e.g. silent's ASI loader).
 # -----------------------------------------------------------------------------
 
-set(CMAKE_CXX_STANDARD 17)
+
+# NOTE: plugin-sdk's shared/injector.hpp declares a C++20 `concept`
+# (valid_pointer_type) that constrains a template used throughout the SDK.
+# Everything that includes injector.hpp (which is most of the codebase)
+# fails to compile under C++17 as a result, so this has to be C++20 — not
+# an MSVC extension, just the language-standard floor the SDK itself needs.
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
